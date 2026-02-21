@@ -43,7 +43,143 @@ const textReplacements = [
   [/Top 60 Medical Office Building Contractors/gi, "Top 60 Contratistas de Edificios Medicos"],
   [/Top 40 Parking Structure Contractors/gi, "Top 40 Contratistas de Estructuras de Estacionamiento"],
   [/Great Place to Work Certification/gi, "Certificacion Great Place to Work"],
-  [/Copyright\s*(?:©|&copy;)\s*2024/gi, "Copyright © 2026"]
+  [/Copyright\s*(?:©|&copy;)\s*2024/gi, "Copyright © 2026"],
+  [
+    /Our post-construction services gives you peace of mind knowing that we are still here for you even after\./gi,
+    "Nuestros servicios posteriores a la construccion te brindan tranquilidad al saber que seguimos aqui para ti incluso despues."
+  ],
+  [
+    /Graviton Construction team can renovate any part of your home\. Here are some of the most commonly\./gi,
+    "El equipo de DIICSA puede renovar cualquier parte de tu hogar. Estos son algunos de los trabajos mas comunes."
+  ],
+  [
+    /Graviton offers both emergency roof leak and non-emergency roof repair services to both commercial\./gi,
+    "DIICSA ofrece servicios de reparacion de techos, tanto de emergencia como programados, para proyectos comerciales."
+  ],
+  [/VIEW MORE/gi, "VER MAS"],
+  [/Call Us 24\/7/gi, "Llamanos 24/7"],
+  [/send mail us/gi, "Envianos un correo"],
+  [/Get A Quote/gi, "Solicitar Cotizacion"],
+  [/\bHome 02\b/gi, "Inicio"],
+  [/\bHome 01\b/gi, "Inicio"],
+  [/Our Services Include/gi, "Nuestros servicios incluyen"],
+  [/Our Services/gi, "Nuestros Servicios"],
+  [/"name":"Home"/g, '"name":"Inicio"'],
+  [/\\\"name\\\":\\\"Home\\\"/g, "\\\"name\\\":\\\"Inicio\\\""],
+  [/>\s*Services\s*</gi, ">Servicios<"],
+  [/"name":"Services"/g, '"name":"Servicios"'],
+  [/\\\"name\\\":\\\"Services\\\"/g, "\\\"name\\\":\\\"Servicios\\\""],
+  [/Service Details/gi, "Detalle del Servicio"],
+  [/Contact Us/gi, "Contacto"],
+  [/Full project management/gi, "Gestion integral de proyectos"],
+  [/We Provide A Variety Of Construction (?:Services|Servicios)/gi, "Ofrecemos una variedad de servicios de construccion"],
+  [
+    /Our partners and experienced staff are experts in the construction process and our focus on the needs of our clients separate us from the competition\. Our team is backed by the full resources of our home office staff and a deep networking infrastructure\. At Graviton we offer many (?:Services|Servicios) to accommodate all the needs of our clients making your project streamline\./gi,
+    "Nuestros socios y personal con experiencia son expertos en el proceso de construccion, y nuestro enfoque en las necesidades de nuestros clientes nos diferencia de la competencia. Nuestro equipo cuenta con el respaldo total de la oficina central y una infraestructura de colaboracion solida. En DIICSA ofrecemos muchos servicios para atender todas las necesidades de nuestros clientes y agilizar su proyecto."
+  ],
+  [/Our partners and experienced staff are experts in the construction process and our focus \[&hellip;\]/gi, "Nuestros socios y personal con experiencia son expertos en el proceso de construccion y nuestro enfoque [&hellip;]"],
+  [/what we offer/gi, "lo que ofrecemos"],
+  [/We Provide Excellent/gi, "Brindamos un excelente"],
+  [/Service To Our Customers/gi, "servicio a nuestros clientes"],
+  [/Graviton construction is dedicated to being a partner for all of your construction needs\./gi, "DIICSA esta dedicada a ser tu socio para todas tus necesidades de construccion."],
+  [/OUR projects/gi, "NUESTROS proyectos"],
+  [/Building the Future of/gi, "Construyendo el futuro de"],
+  [/the Construction Industry,/gi, "la industria de la construccion,"],
+  [/One Project at a Time\./gi, "un proyecto a la vez."],
+  [/Graviton takes a comprehensive view of sustainability through our 5P Model to ensure that our efforts result in positive outcomes for our partners, people, projects, practices and places\. Lorem ipsum dolor sit amet sed do eiusmod tempor\./gi, "DIICSA adopta una vision integral de la sostenibilidad a traves de nuestro modelo 5P para asegurar que nuestros esfuerzos generen resultados positivos para nuestros socios, personas, proyectos, practicas y lugares."],
+  [/VER MAS projects/gi, "VER MAS proyectos"],
+  [/Process For Us To Work/gi, "Nuestro proceso de trabajo"],
+  [/We celebrate the opportunity each project brings and leverage our 30\+ (?:Anos de experiencia|years of experience) to deliver customized construction solutions\. Flexibility is essential in today[’']s world, and every project is unique\./gi, "Valoramos la oportunidad que brinda cada proyecto y aprovechamos nuestros mas de 30 anos de experiencia para entregar soluciones de construccion personalizadas. La flexibilidad es esencial en el mundo actual, y cada proyecto es unico."],
+  [/Meet and Consultant/gi, "Reunion y consultoria"],
+  [/Planning and Design/gi, "Planificacion y diseno"],
+  [/Proceed with Construction/gi, "Ejecucion de la construccion"],
+  [/Project Handover/gi, "Entrega del proyecto"],
+  [/Quality/g, "Calidad"],
+  [/Integrity/g, "Integridad"],
+  [/Experience/g, "Experiencia"],
+  [/What We Do Detail/gi, "Detalle de Servicios"],
+  [/What We Do/gi, "Que Hacemos"],
+  [
+    /We are one of the most-esteemed building[s]? construction company\. We have earned this respect through the quality and long-lasting structures that we have developed over the years\./gi,
+    "Somos una de las empresas de construccion de edificios mas reconocidas. Hemos ganado este prestigio gracias a la calidad y durabilidad de las estructuras que hemos desarrollado a lo largo de los anos."
+  ],
+  [/We are one of the most-esteemed building[s]? construction company\. We have earned this respect through the quality and lon \.\.\./gi, "Somos una de las empresas de construccion de edificios mas reconocidas. Hemos ganado este prestigio gracias a la calidad y durabilidad de nuestras estructuras..."],
+  [
+    /Mountjoy have been constructing new buildings as a main and principal contractor for over twenty years\. We work in close collaboration with our clients and their advisors to create new civic, cultural and community facilities as well as learning and living environments\./gi,
+    "Durante mas de veinte anos, hemos construido nuevos edificios como contratista principal. Trabajamos en estrecha colaboracion con nuestros clientes y sus asesores para crear nuevas instalaciones civicas, culturales y comunitarias, asi como espacios de aprendizaje y de vivienda."
+  ],
+  [
+    /Our team consists of professionally qualified and experienced Project Managers, Estimators, Quantity Surveyors and Site Managers – enabling us to provide an end-to-end service from design through pre-construction, to delivery and aftercare\. Supported by a carefully selected, pre-qualified\./gi,
+    "Nuestro equipo esta formado por gerentes de proyecto, estimadores, especialistas de costos y supervisores de obra con amplia experiencia, lo que nos permite brindar un servicio integral desde el diseno y la preconstruccion, hasta la entrega y el servicio posterior, respaldados por una seleccion cuidadosa y pre-calificada."
+  ],
+  [
+    /We have the experience and expertise to deliver a variety of building designs for a wide range of clients\. We are used to working on complex building projects with challenging programmes and high customer expectations\. Our team works closely with our clients and professional advisors to understand the requirements\./gi,
+    "Contamos con la experiencia y la capacidad tecnica para entregar una amplia variedad de disenos constructivos para distintos tipos de clientes. Estamos acostumbrados a trabajar en proyectos complejos con programas exigentes y altas expectativas de calidad. Nuestro equipo colabora estrechamente con clientes y asesores profesionales para entender cada requerimiento."
+  ],
+  [
+    /We are a team of technically knowledgeable, competent as well as well-trained personnel who altogether serve to our existing customers at their best\. We are always ready to fetch the after sale assistance whenever and wherever required by our clients\./gi,
+    "Somos un equipo tecnicamente preparado, competente y bien capacitado, enfocado en atender de la mejor manera a nuestros clientes actuales. Siempre estamos listos para brindar asistencia postventa cuando y donde nuestros clientes lo necesiten."
+  ],
+  [
+    /We have a track record of delivering significant extension and expansion projects for buildings as diverse as schools, leisure centres, churches, and industrial units – providing much needed space and new facilities for our clients\. We are used to working in close proximity to occupied buildings\./gi,
+    "Contamos con un historial solido en ampliaciones y proyectos de expansion para edificios tan diversos como escuelas, centros de ocio, iglesias y naves industriales, proporcionando espacio adicional e instalaciones nuevas para nuestros clientes. Estamos acostumbrados a trabajar muy cerca de edificios ocupados."
+  ],
+  [
+    /We are committed to keeping our sites segregated, secure and safe and regularly obtain Considerate Contractor accreditation for our projects\./gi,
+    "Estamos comprometidos con mantener nuestras obras organizadas, seguras y protegidas, y obtenemos regularmente acreditaciones de contratista responsable para nuestros proyectos."
+  ],
+  [
+    /Of course\. We are more than happy to visit your property at a time convenient for yourself and quote for the required works\. If you don’t own the property and are looking for us to quote on work\. Aenean commodo nec ligula eget dolor\./gi,
+    "Por supuesto. Con gusto visitamos su propiedad en el horario que le resulte mas conveniente para cotizar los trabajos requeridos. Si usted no es el propietario y necesita una cotizacion para realizar trabajos en el inmueble, tambien podemos ayudarle."
+  ],
+  [/Description Of The Service/gi, "Descripcion del Servicio"],
+  [/Full Principal Contractor service/gi, "Servicio completo de contratista principal"],
+  [/Full-time Onsite Supervision/gi, "Supervision permanente en sitio"],
+  [/Groundworks and foundations/gi, "Obras preliminares y cimentaciones"],
+  [/Timber and steel frame construction/gi, "Construccion en estructura de madera y acero"],
+  [/Mechanical & electrical installations/gi, "Instalaciones mecanicas y electricas"],
+  [/External landscaping, car parks and paths/gi, "Urbanizacion exterior, estacionamientos y andadores"],
+  [/Solutions & Benefits/gi, "Soluciones y Beneficios"],
+  [
+    /One of the best things that we have associated ourselves is the flexibility in terms of budget\. The services that we provide aren’t merely designed for a particular set of budget and thus we are flexible enough to work in all kinds of budgets, big or small\./gi,
+    "Uno de nuestros mayores diferenciales es la flexibilidad presupuestal. Nuestros servicios no estan disenados para un solo rango de presupuesto; por eso podemos trabajar con todo tipo de presupuestos, grandes o pequenos."
+  ],
+  [/Solutions 1/gi, "Solucion 1"],
+  [/Solutions 2/gi, "Solucion 2"],
+  [/Solutions 3/gi, "Solucion 3"],
+  [/Program Management and Owner Advocacy/gi, "Gestion de programas y representacion del cliente"],
+  [/Site Selection and Economic Development Incentive Negotiations/gi, "Seleccion de sitio y negociacion de incentivos para desarrollo economico"],
+  [/Construction Management as Constructor \(CMc\)/gi, "Gestion de construccion como constructor (CMc)"],
+  [/Benefit Of Service/gi, "Beneficios del Servicio"],
+  [/Timber and steel frame extensions/gi, "Ampliaciones en estructura de madera y acero"],
+  [/Fit-out and internal works/gi, "Adecuaciones y trabajos interiores"],
+  [/Partitioning and plastering/gi, "Divisiones y enjarres"],
+  [/Window and door replacements/gi, "Reemplazo de ventanas y puertas"],
+  [/Working Process/gi, "Proceso de Trabajo"],
+  [/1\.Consultation/gi, "1. Consulta"],
+  [/2\.Design & Work/gi, "2. Diseno y Ejecucion"],
+  [/3\.Complete & Maintenance/gi, "3. Entrega y Mantenimiento"],
+  [/Frequently Asked Questions/gi, "Preguntas Frecuentes"],
+  [/How does the whole process work\?/gi, "Como funciona todo el proceso?"],
+  [/What sort of aftercare can you expect\?/gi, "Que tipo de soporte posterior puedes esperar?"],
+  [/What other services do you offer\?/gi, "Que otros servicios ofrecen?"],
+  [/How are payments handled and dealt with\?/gi, "Como se gestionan los pagos?"],
+  [/categories/gi, "categorias"],
+  [/Architecture Design/gi, "Diseno Arquitectonico"],
+  [/Building Renovation/gi, "Renovacion de Edificios"],
+  [/Flooring & Roofing/gi, "Pisos y Techos"],
+  [/General Contracting/gi, "Contratacion General"],
+  [/Repair & Expand/gi, "Reparacion y Ampliacion"],
+  [/why choose us/gi, "por que elegirnos"],
+  [/Years Of Experience/gi, "Anos de experiencia"],
+  [/Many Prestigious Awards/gi, "Muchos premios prestigiosos"],
+  [/Experienced Engineer/gi, "Ingenieros con experiencia"],
+  [/Free Consulting/gi, "Asesoria gratuita"],
+  [/download brochure/gi, "descargar brochure"],
+  [/Please download our document to see specific data of the aservice and how we work\./gi, "Descarga nuestro documento para ver informacion especifica del servicio y como trabajamos."],
+  [/services detail/gi, "detalle del servicio"],
+  [/Let[’']s Start Work Together/gi, "Comencemos a Trabajar Juntos"],
+  [/contact us today/gi, "contactanos hoy"]
 ] as const;
 
 function applyTranslations(html: string) {
@@ -74,15 +210,20 @@ const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
         display: none !important;
       }
 
-      /* Increase DIICSA top-left header logo by 50% (49px -> 74px, 45px -> 68px). */
+      /* Temporarily hide the "Articulos y Noticias" block. */
+      .elementor-element-ab40a8c {
+        display: none !important;
+      }
+
+      /* Increase DIICSA top-left header logo by ~40% from current size. */
       #pxl-header-elementor .elementor-element-d9df9fe .pxl-logo img {
-        max-height: 74px !important;
+        max-height: 104px !important;
         width: auto !important;
       }
 
       @media (max-width: 1600px) {
         #pxl-header-elementor .elementor-element-d9df9fe .pxl-logo img {
-          max-height: 68px !important;
+          max-height: 95px !important;
         }
       }
     </style>
@@ -189,6 +330,33 @@ const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
           });
         }
 
+        function normalizeText(value) {
+          return (value ?? "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/\s+/g, " ")
+            .trim();
+        }
+
+        function removeLatestArticlesSection() {
+          document.querySelectorAll("section.elementor-section").forEach((section) => {
+            const titles = Array.from(section.querySelectorAll("h1, h2, h3, h4, h5, h6")).map((node) =>
+              normalizeText(node.textContent)
+            );
+            const hasArticlesTitle = titles.some(
+              (title) => title.includes("articulos y noticias") || title.includes("articles and news")
+            );
+            const hasPostCarousel = Boolean(
+              section.querySelector(".elementor-widget-pxl_post_carousel, .pxl-post-carousel")
+            );
+
+            if (hasArticlesTitle && hasPostCarousel) {
+              section.remove();
+            }
+          });
+        }
+
         function cleanupLegacyMenus() {
           removeTopBarBrokenIcons();
           removeStickyHeaderClone();
@@ -196,6 +364,7 @@ const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
           removeMobileMenus();
           removeValuesSection();
           removeFooterPlaceholderSocial();
+          removeLatestArticlesSection();
         }
 
         let scheduled = false;
