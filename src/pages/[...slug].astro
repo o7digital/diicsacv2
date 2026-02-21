@@ -15,6 +15,47 @@ export function getStaticPaths() {
 
 const { page } = Astro.props;
 const bodyAttributes = page.bodyAttributes ?? {};
+const textReplacements = [
+  [/THE FIELD WE BUILD/gi, "EL CAMPO QUE CONSTRUIMOS"],
+  [
+    /We are proud to have built a reputation as a leader in the construction of high-quality facilities\. Clients, industry professionals and financial institutions view us as a premier choice for design and general construction services\./gi,
+    "Nos enorgullece haber construido una reputacion como lider en la construccion de instalaciones de alta calidad. Clientes, profesionales de la industria e instituciones financieras nos ven como la mejor opcion para diseno y construccion general."
+  ],
+  [/Building Construction/gi, "Construccion de Edificios"],
+  [/Home Remodeling/gi, "Remodelacion del Hogar"],
+  [
+    /In addition to building some of the world[’']s modern marvels, we plays a role in developing\./gi,
+    "Ademas de construir algunas de las maravillas modernas del mundo, tambien participamos en su desarrollo."
+  ],
+  [
+    /Founded in 1960 we are the oldest construction company in the New York/gi,
+    "Fundada en 1960, somos la empresa de construccion mas antigua de Nueva York."
+  ],
+  [
+    /Graviton began as a humble operation in 1906 when workers in collared shirts and coveralls wielded hand tools and guided horse-drawn machinery on the first dusty construction sites\.\.\./gi,
+    "Graviton comenzo como una operacion humilde en 1906, cuando los trabajadores usaban herramientas manuales y guiaban maquinaria de traccion animal en los primeros sitios de construccion..."
+  ],
+  [/OUR TIMELINE/gi, "NUESTRA HISTORIA"],
+  [
+    /With more than 25 years in the field of construction we have received many prestigious awards, we are the leading company in terms of prestige for your works\./gi,
+    "Con mas de 25 anos en el sector de la construccion, hemos recibido muchos premios prestigiosos; somos una empresa lider por el prestigio de nuestras obras."
+  ],
+  [/Top 60 Medical Office Building Contractors/gi, "Top 60 Contratistas de Edificios Medicos"],
+  [/Top 40 Parking Structure Contractors/gi, "Top 40 Contratistas de Estructuras de Estacionamiento"],
+  [/Great Place to Work Certification/gi, "Certificacion Great Place to Work"],
+  [/Copyright\s*(?:©|&copy;)\s*2024/gi, "Copyright © 2026"]
+] as const;
+
+function applyTranslations(html: string) {
+  let translated = html;
+  for (const [pattern, replacement] of textReplacements) {
+    translated = translated.replace(pattern, replacement);
+  }
+  return translated;
+}
+
+const translatedHeadHtml = applyTranslations(page.headHtml ?? "");
+const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
 ---
 
 <!doctype html>
@@ -23,9 +64,161 @@ const bodyAttributes = page.bodyAttributes ?? {};
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <Fragment set:html={page.headHtml} />
+    <Fragment set:html={translatedHeadHtml} />
+    <style is:global>
+      /* Hide legacy Graviton menus that should never be visible on this clone. */
+      .menu-menu-primary-container,
+      [id^="menu-menu-primary"],
+      [id^="menu-menu-mobile"],
+      .pxl-header-elementor-sticky {
+        display: none !important;
+      }
+
+      /* Increase DIICSA top-left header logo by 50% (49px -> 74px, 45px -> 68px). */
+      #pxl-header-elementor .elementor-element-d9df9fe .pxl-logo img {
+        max-height: 74px !important;
+        width: auto !important;
+      }
+
+      @media (max-width: 1600px) {
+        #pxl-header-elementor .elementor-element-d9df9fe .pxl-logo img {
+          max-height: 68px !important;
+        }
+      }
+    </style>
   </head>
   <body {...bodyAttributes}>
-    <Fragment set:html={page.bodyHtml} />
+    <Fragment set:html={translatedBodyHtml} />
+    <script is:inline>
+      (() => {
+        function hasOnePageMenu(scope) {
+          return Boolean(scope?.querySelector('[id^="menu-menu-one-page"]'));
+        }
+
+        function removePrimaryMenus() {
+          document.querySelectorAll('[id^="menu-menu-primary"], .menu-menu-primary-container').forEach((node) => {
+            const section = node.closest("section.elementor-section");
+            if (section && !hasOnePageMenu(section)) {
+              section.remove();
+              return;
+            }
+
+            const removeTarget =
+              node.closest(".elementor-widget-pxl_menu") ??
+              node.closest(".pxl-nav-menu") ??
+              node.closest(".elementor-widget") ??
+              node;
+            removeTarget.remove();
+          });
+        }
+
+        function removeMobileMenus() {
+          document.querySelectorAll('[id^="menu-menu-mobile"]').forEach((node) => {
+            const removeTarget =
+              node.closest(".pxl-header-menu-scroll") ??
+              node.closest(".pxl-header-menu") ??
+              node.closest(".pxl-header-nav") ??
+              node.closest(".elementor-widget") ??
+              node;
+            removeTarget.remove();
+          });
+        }
+
+        function removeTopBarBrokenIcons() {
+          const mainHeader = document.querySelector("#pxl-header-elementor .pxl-header-elementor-main");
+          if (!mainHeader) return;
+
+          mainHeader.querySelectorAll(".pxl-icon-list").forEach((list) => {
+            if (!list.querySelector("i.fab")) return;
+
+            const widget =
+              list.closest(".elementor-widget-pxl_icon") ??
+              list.closest(".elementor-widget") ??
+              list;
+            const wrap = widget.parentElement;
+
+            widget.remove();
+
+            // Remove the vertical divider that belongs to the same top-right icon area.
+            wrap?.querySelectorAll(".elementor-widget-divider").forEach((divider) => {
+              divider.remove();
+            });
+          });
+        }
+
+        function removeStickyHeaderClone() {
+          document.querySelectorAll(".pxl-header-elementor-sticky").forEach((node) => {
+            node.remove();
+          });
+        }
+
+        function removeValuesSection() {
+          document.querySelectorAll("section.elementor-section").forEach((section) => {
+            const titles = Array.from(section.querySelectorAll("h5.pxl-item--title"))
+              .map((node) => (node.textContent ?? "").replace(/\s+/g, " ").trim());
+            const hasClientes = titles.includes("Clientes");
+            const hasEmpleados = titles.includes("Empleados.");
+            const hasComunidad = titles.includes("Comunidad");
+
+            if (hasClientes && hasEmpleados && hasComunidad) {
+              section.remove();
+            }
+          });
+        }
+
+        function removeFooterPlaceholderSocial() {
+          const footer = document.querySelector("#pxl-footer-elementor");
+          if (!footer) return;
+
+          footer.querySelectorAll(".pxl-icon-list").forEach((list) => {
+            const links = Array.from(list.querySelectorAll("a"));
+            if (links.length < 5) return;
+
+            const onlyPlaceholders = links.every((link) => {
+              const href = (link.getAttribute("href") ?? "").trim().toLowerCase();
+              return href === "" || href === "#";
+            });
+
+            if (!onlyPlaceholders) return;
+
+            const removeTarget =
+              list.closest(".elementor-widget-pxl_icon") ??
+              list.closest(".elementor-widget") ??
+              list;
+            removeTarget.remove();
+          });
+        }
+
+        function cleanupLegacyMenus() {
+          removeTopBarBrokenIcons();
+          removeStickyHeaderClone();
+          removePrimaryMenus();
+          removeMobileMenus();
+          removeValuesSection();
+          removeFooterPlaceholderSocial();
+        }
+
+        let scheduled = false;
+        function scheduleCleanup() {
+          if (scheduled) return;
+          scheduled = true;
+          requestAnimationFrame(() => {
+            scheduled = false;
+            cleanupLegacyMenus();
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", cleanupLegacyMenus, { once: true });
+        } else {
+          cleanupLegacyMenus();
+        }
+
+        const observer = new MutationObserver(scheduleCleanup);
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+
+        window.addEventListener("scroll", scheduleCleanup, { passive: true });
+      })();
+    </script>
   </body>
 </html>
