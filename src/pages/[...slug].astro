@@ -1,0 +1,31 @@
+---
+import snapshot from "../data/wp-snapshot.json";
+
+export function getStaticPaths() {
+  return snapshot.pages.map((page) => {
+    const normalized = page.path.replace(/^\/+|\/+$/g, "");
+    return {
+      params: {
+        slug: normalized === "" ? undefined : normalized
+      },
+      props: { page }
+    };
+  });
+}
+
+const { page } = Astro.props;
+const bodyAttributes = page.bodyAttributes ?? {};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <Fragment set:html={page.headHtml} />
+  </head>
+  <body {...bodyAttributes}>
+    <Fragment set:html={page.bodyHtml} />
+  </body>
+</html>
