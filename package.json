@@ -4,9 +4,6 @@
   "version": "0.0.1",
   "scripts": {
     "wp:migrate": "node scripts/migrate-wp.mjs",
-    "wp:clean": "node scripts/clean-wp-snapshot.mjs",
-    "images:webp": "node scripts/optimize-images-webp.mjs",
-    "site:clean": "npm run wp:clean && npm run images:webp && npm run wp:clean",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
