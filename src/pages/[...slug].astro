@@ -43,7 +43,13 @@ const textReplacements = [
   [/Top 60 Medical Office Building Contractors/gi, "Top 60 Contratistas de Edificios Medicos"],
   [/Top 40 Parking Structure Contractors/gi, "Top 40 Contratistas de Estructuras de Estacionamiento"],
   [/Great Place to Work Certification/gi, "Certificacion Great Place to Work"],
+  [/Penelopa Miller/gi, "Tania Salgado"],
+  [/Stephan W\.?\s*Lars/gi, "Victor Manuel Salgado"],
+  [/Founder,\s*Chairman and CEO/gi, "Fundador y CEO"],
   [/Copyright\s*(?:©|&copy;)\s*2024/gi, "Copyright © 2026"],
+  [/<a href="#">\s*Aviso de Privacidad\.?\s*<\/a>/gi, '<a href="/aviso-de-privacidad/">Aviso de Privacidad</a>'],
+  [/<a href="#">\s*T(?:e|é)rminos y condiciones\s*<\/a>/gi, ""],
+  [/<a class="pxl-scroll-top[\s\S]*?<\/a>/gi, ""],
   [
     /Our post-construction services gives you peace of mind knowing that we are still here for you even after\./gi,
     "Nuestros servicios posteriores a la construccion te brindan tranquilidad al saber que seguimos aqui para ti incluso despues."
@@ -179,7 +185,62 @@ const textReplacements = [
   [/Please download our document to see specific data of the aservice and how we work\./gi, "Descarga nuestro documento para ver informacion especifica del servicio y como trabajamos."],
   [/services detail/gi, "detalle del servicio"],
   [/Let[’']s Start Work Together/gi, "Comencemos a Trabajar Juntos"],
-  [/contact us today/gi, "contactanos hoy"]
+  [/contact us today/gi, "contactanos hoy"],
+  [/a historical journey/gi, "un recorrido historico"],
+  [/Our History Graviton/gi, "Nuestra Historia DIICSA"],
+  [/Our History/gi, "Nuestra Historia"],
+  [/\bHistory\b/g, "Historia"],
+  [/Established In 1906/gi, "Fundada en 1906"],
+  [
+    /Graviton began as a humble operation in 1996 when workers in collared shirts and coveralls wielded hand tools and guided horse-drawn machinery on the first dusty construction sites\. We could have never imagined that small-town builder growing into what it has become today [—-] one of the largest and most respected construction companies\./gi,
+    "DIICSA comenzo como una operacion humilde en 1996, cuando los trabajadores utilizaban herramientas manuales y maquinaria de traccion en los primeros sitios de obra. En ese momento era dificil imaginar que ese pequeno constructor se convertiria en una de las empresas de construccion mas grandes y respetadas."
+  ],
+  [/learn more our history/gi, "conoce mas de nuestra historia"],
+  [/Let(?:&#8217;|[’'])s See Our Process/gi, "Conoce Nuestro Proceso"],
+  [/The Beginning/gi, "El Comienzo"],
+  [/Incorporated/gi, "Constituida"],
+  [/First Major Buildings Project/gi, "Primer Gran Proyecto de Edificacion"],
+  [/Family Business/gi, "Empresa Familiar"],
+  [/Employee Ownership/gi, "Propiedad de los Empleados"],
+  [/First U\.S\. Civil Prpject/gi, "Primer Proyecto Civil en EE. UU."],
+  [/Choosing To Included/gi, "Elegir la Inclusion"],
+  [
+    /After first coming to Western Canada in 1903, Ernest \(Ernie\) Poole starts a construction company in Stoughton, Saskatchewan\. Nulla dictum placerat sagittis\. Donec nec laoreet arcu\./gi,
+    "Despues de llegar por primera vez al oeste de Canada en 1903, Ernest (Ernie) Poole inicia una empresa de construccion en Stoughton, Saskatchewan. Nulla dictum placerat sagittis. Donec nec laoreet arcu."
+  ],
+  [
+    /Three years after moving the company[’']s headquarters to Rouleau, Saskatchewan, in 1910, Ernie incorporates his company as Poole Construction Ltd\. and sets his sights\s+on bigger construction projects\.\s*Maecenas nisi ex, sodales suscipit dapibus\./gi,
+    "Tres anos despues de trasladar la sede de la empresa a Rouleau, Saskatchewan, en 1910, Ernie constituye su empresa como Poole Construction Ltd. y se enfoca en proyectos de construccion mas grandes. Maecenas nisi ex, sodales suscipit dapibus."
+  ],
+  [
+    /Poole Construction Ltd\. completes its first major buildings project, the Weyburn Hospital in Weyburn, Saskatchewan\. The building covered nearly 6 acres of land, and more than 4 million bricks and 1\.25 million feet of rough timber were used to construct it\./gi,
+    "Poole Construction Ltd. completa su primer gran proyecto de edificacion: el Hospital Weyburn en Weyburn, Saskatchewan. El edificio abarco casi 6 acres de terreno y se utilizaron mas de 4 millones de ladrillos y 1.25 millones de pies de madera para su construccion."
+  ],
+  [
+    /John and George Poole take a leap of faith and purchase Poole Construction Ltd\. from their father, Ernie\. Before transferring ownership, Ernie wrote down a set of guidelines that came to be known as [“\"]Poole[’']s Rules\.?[”\"] These principles helped Ernie successfully navigate his journey in the construction business and are the foundation of PCL[’']s guiding principles today\./gi,
+    "John y George Poole dan un paso decisivo y compran Poole Construction Ltd. a su padre, Ernie. Antes de transferir la propiedad, Ernie redacto un conjunto de lineamientos conocidos como \"Reglas de Poole\". Estos principios le ayudaron a recorrer con exito su trayectoria en la construccion y hoy son la base de los principios rectores de PCL."
+  ],
+  [
+    /With a belief that employee ownership would result in greater loyalty and stability, and an admiration for other companies using the model, CEO Bob Stollery and 24 other senior managers purchase Poole Construction Ltd\. from the Poole family, signaling the start of employee ownership\./gi,
+    "Con la conviccion de que la propiedad de los empleados generaria mayor lealtad y estabilidad, y tomando como referencia a otras empresas con ese modelo, el CEO Bob Stollery y otros 24 directivos compran Poole Construction Ltd. a la familia Poole, marcando el inicio de la propiedad de los empleados."
+  ],
+  [
+    /PCL begins work on their first major American heavy civil project, Glade Creek Bridge in West Virginia\. The company establishes civil infrastructure operations in Florida and Arizona that same year\./gi,
+    "PCL inicia su primer gran proyecto civil pesado en Estados Unidos: el puente Glade Creek en Virginia Occidental. Ese mismo ano, la empresa establece operaciones de infraestructura civil en Florida y Arizona."
+  ],
+  [
+    /PCL[’']s Diversity initiative is created to enrich the organization and further draw upon the backgrounds and perspectives of employees to drive innovative solutions\./gi,
+    "Se crea la iniciativa de Diversidad de PCL para enriquecer a la organizacion y aprovechar mejor los antecedentes y perspectivas del personal, impulsando soluciones innovadoras."
+  ],
+  [/learn more Nuestra Historia/gi, "conoce mas de nuestra historia"],
+  [
+    /Poole Construction Ltd\. completes its Primer Gran Proyecto de Edificacion, the Weyburn Hospital in Weyburn, Saskatchewan\. The building covered nearly 6 acres of land, and more than 4 million bricks and 1\.25 million feet of rough timber were used to construct it\./gi,
+    "Poole Construction Ltd. completa su primer gran proyecto de edificacion: el Hospital Weyburn en Weyburn, Saskatchewan. El edificio abarco casi 6 acres de terreno y se utilizaron mas de 4 millones de ladrillos y 1.25 millones de pies de madera para su construccion."
+  ],
+  [
+    /With a belief that Propiedad de los Empleados would result in greater loyalty and stability, and an admiration for other companies using the model, CEO Bob Stollery and 24 other senior managers purchase Poole Construction Ltd\. from the Poole family, signaling the start of Propiedad de los Empleados\./gi,
+    "Con la conviccion de que la propiedad de los empleados generaria mayor lealtad y estabilidad, y tomando como referencia a otras empresas con ese modelo, el CEO Bob Stollery y otros 24 directivos compran Poole Construction Ltd. a la familia Poole, marcando el inicio de la propiedad de los empleados."
+  ]
 ] as const;
 
 function applyTranslations(html: string) {
@@ -212,6 +273,29 @@ const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
 
       /* Temporarily hide the "Articulos y Noticias" block. */
       .elementor-element-ab40a8c {
+        display: none !important;
+      }
+
+      /* Hide orange "ready to work together" info box card. */
+      .elementor-element-14da8a8 {
+        display: none !important;
+      }
+
+      /* Hide WooCommerce cart icon in header and cart sidebar panel. */
+      #pxl-header-elementor .elementor-widget-icon_cart,
+      #pxl-header-elementor .pxl-cart-sidebar-button,
+      #pxl-cart-sidebar {
+        display: none !important;
+      }
+
+      /* Hide the floating orange scroll-top circle at the right side/footer. */
+      .pxl-scroll-top {
+        display: none !important;
+      }
+
+      /* Hide buttons explicitly labeled "leer mas". */
+      .pxl-button:has(.pxl--btn-text[data-text="leer mas" i]),
+      .elementor-widget-pxl_button:has(.pxl--btn-text[data-text="leer mas" i]) {
         display: none !important;
       }
 
@@ -330,6 +414,26 @@ const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
           });
         }
 
+        function removeHeaderCart() {
+          document
+            .querySelectorAll(
+              "#pxl-header-elementor .elementor-widget-icon_cart, #pxl-header-elementor .pxl-cart-sidebar-button, #pxl-cart-sidebar"
+            )
+            .forEach((node) => {
+              const removeTarget =
+                node.closest(".elementor-widget-icon_cart") ??
+                node.closest(".elementor-widget") ??
+                node;
+              removeTarget.remove();
+            });
+        }
+
+        function removeScrollTopButton() {
+          document.querySelectorAll(".pxl-scroll-top, a.pxl-scroll-top").forEach((node) => {
+            node.remove();
+          });
+        }
+
         function normalizeText(value) {
           return (value ?? "")
             .toLowerCase()
@@ -357,6 +461,89 @@ const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
           });
         }
 
+        function updateFooterLegalLinks() {
+          const footer = document.querySelector("#pxl-footer-elementor");
+          if (!footer) return;
+
+          footer.querySelectorAll("p").forEach((paragraph) => {
+            const links = Array.from(paragraph.querySelectorAll("a"));
+            if (!links.length) return;
+
+            const avisoLink = links.find((link) => normalizeText(link.textContent).includes("aviso de privacidad"));
+            const terminosLink = links.find((link) =>
+              normalizeText(link.textContent).includes("terminos y condiciones")
+            );
+
+            if (avisoLink) {
+              const cleanAvisoLink = avisoLink.cloneNode(true);
+              cleanAvisoLink.setAttribute("href", "/aviso-de-privacidad/");
+              cleanAvisoLink.textContent = "Aviso de Privacidad";
+              paragraph.replaceChildren(cleanAvisoLink);
+            }
+
+            terminosLink?.remove();
+          });
+
+          footer.querySelectorAll("a").forEach((link) => {
+            if (normalizeText(link.textContent).includes("aviso de privacidad")) {
+              link.setAttribute("href", "/aviso-de-privacidad/");
+              link.textContent = "Aviso de Privacidad";
+            }
+
+            if (normalizeText(link.textContent).includes("terminos y condiciones")) {
+              link.remove();
+            }
+          });
+        }
+
+        function removeContactProjectSection() {
+          document.querySelectorAll("section.elementor-section").forEach((section) => {
+            const text = normalizeText(section.textContent);
+            const hasMainTitle =
+              text.includes("dejanos hacer tu proyecto") || text.includes("let us do your project");
+            const hasContactHeader = text.includes("contacta nos") || text.includes("contactanos");
+            const hasContactCards =
+              text.includes("consulta rapida") &&
+              text.includes("llamanos de vuelta") &&
+              text.includes("contacto por email") &&
+              text.includes("bajar nuestro brochure");
+
+            if ((hasMainTitle && hasContactHeader) || hasContactCards) {
+              section.remove();
+            }
+          });
+        }
+
+        function removeReadyToWorkWidgets() {
+          document.querySelectorAll(".elementor-widget-pxl_info_box, .pxl-info-box1").forEach((node) => {
+            const widget = node.closest(".elementor-widget-pxl_info_box") ?? node;
+            const text = normalizeText(widget.textContent);
+            const isReadyBox =
+              text.includes("estas listo para trabajar junto a nosotros") ||
+              text.includes("unete a nosotros hoy") ||
+              text.includes("are you ready to work together");
+
+            if (isReadyBox) {
+              widget.remove();
+            }
+          });
+        }
+
+        function removeLeerMasButtons() {
+          document.querySelectorAll(".pxl--btn-text, .pxl-button a.btn").forEach((node) => {
+            const text = normalizeText(node.textContent);
+            const dataText = normalizeText(node.getAttribute?.("data-text"));
+            const isLeerMas = text === "leer mas" || dataText === "leer mas";
+            if (!isLeerMas) return;
+
+            const removeTarget =
+              node.closest(".elementor-widget-pxl_button") ??
+              node.closest(".pxl-button") ??
+              node;
+            removeTarget.remove();
+          });
+        }
+
         function cleanupLegacyMenus() {
           removeTopBarBrokenIcons();
           removeStickyHeaderClone();
@@ -365,6 +552,12 @@ const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
           removeValuesSection();
           removeFooterPlaceholderSocial();
           removeLatestArticlesSection();
+          removeContactProjectSection();
+          removeReadyToWorkWidgets();
+          removeLeerMasButtons();
+          removeHeaderCart();
+          removeScrollTopButton();
+          updateFooterLegalLinks();
         }
 
         let scheduled = false;
