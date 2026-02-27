@@ -252,16 +252,6 @@ function applyTranslations(html: string) {
   return translated;
 }
 
-function stripLegacySeoHead(html: string) {
-  return html
-    .replace(/<title[^>]*>[\s\S]*?<\/title>/gi, "")
-    .replace(/<meta[^>]+name=["']description["'][^>]*>/gi, "")
-    .replace(/<meta[^>]+name=["']robots["'][^>]*>/gi, "")
-    .replace(/<meta[^>]+property=["']og:[^"']+["'][^>]*>/gi, "")
-    .replace(/<meta[^>]+name=["']twitter:[^"']+["'][^>]*>/gi, "")
-    .replace(/<link[^>]+rel=["']canonical["'][^>]*>/gi, "");
-}
-
 function extractMetaDescription(html: string) {
   const match = html.match(/<meta[^>]+name=["']description["'][^>]*content=["']([^"']+)["'][^>]*>/i);
   return match?.[1]?.trim();
@@ -272,18 +262,12 @@ function extractOgImage(html: string) {
   return match?.[1]?.trim();
 }
 
-function addImagePerformanceAttributes(html: string) {
-  let updated = html.replace(/<img(?![^>]*\bloading=)([^>]*)>/gi, '<img loading="lazy" decoding="async"$1>');
-  updated = updated.replace(/<img(?![^>]*\bdecoding=)([^>]*)>/gi, '<img decoding="async"$1>');
-  return updated;
-}
-
 const translatedHeadHtml = applyTranslations(page.headHtml ?? "");
 const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
 const seoDescription = extractMetaDescription(translatedHeadHtml);
 const seoImage = extractOgImage(translatedHeadHtml);
-const cleanedHeadHtml = stripLegacySeoHead(translatedHeadHtml);
-const optimizedBodyHtml = addImagePerformanceAttributes(translatedBodyHtml);
+const headHtmlToInject = translatedHeadHtml;
+const bodyHtmlToInject = translatedBodyHtml;
 const seoTitle = applyTranslations(page.title ?? "DIICSA");
 ---
 <MainLayout
@@ -292,7 +276,7 @@ const seoTitle = applyTranslations(page.title ?? "DIICSA");
   image={seoImage}
   bodyAttributes={bodyAttributes}
 >
-  <Fragment slot="head" set:html={cleanedHeadHtml} />
+  <Fragment slot="head" set:html={headHtmlToInject} />
   <style is:global>
     /* Hide legacy Graviton menus that should never be visible on this clone. */
     .menu-menu-primary-container,
@@ -342,7 +326,7 @@ const seoTitle = applyTranslations(page.title ?? "DIICSA");
       }
     }
   </style>
-  <Fragment set:html={optimizedBodyHtml} />
+  <Fragment set:html={bodyHtmlToInject} />
   <script is:inline>
     (() => {
         function hasOnePageMenu(scope) {
