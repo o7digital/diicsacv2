@@ -1,0 +1,30 @@
+---
+/**
+ * robots.txt - Configuración de crawling para motores de búsqueda
+ */
+const robots = `
+User-agent: *
+Allow: /
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /?
+
+# Específicos para bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# No permitir bots de mal comportamiento
+User-agent: AhrefsBot
+User-agent: SemrushBot
+Disallow: /
+
+Sitemap: https://diicsacv.com/sitemap-index.xml
+`;
+---
+
+{robots}

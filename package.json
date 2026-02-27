@@ -4,12 +4,15 @@
   "version": "0.0.1",
   "scripts": {
     "wp:migrate": "node scripts/migrate-wp.mjs",
+    "images:convert": "node scripts/convert-to-webp.mjs",
+    "images:check-alt": "node scripts/check-alt-text.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.17.1"
+    "astro": "^5.17.1",
+    "astro-sitemap": "^3.1.0"
   }
 }

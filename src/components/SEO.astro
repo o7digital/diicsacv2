@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+  ogType?: string;
+  lang?: string;
+  robots?: string;
+}
+
+const {
+  title,
+  description = "DIICSA - Construcción de calidad. Servicio honesto. Excelente relación calidad-precio.",
+  image = "/og-image.jpg",
+  canonicalUrl,
+  ogType = "website",
+  lang = "es",
+  robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+} = Astro.props;
+
+const siteTitle = title.includes("DIICSA") ? title : `${title} | DIICSA`;
+const siteUrl = canonicalUrl || Astro.url.pathname;
+---
+
+<!-- Primary Meta Tags -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="robots" content={robots} />
+<meta name="description" content={description} />
+<meta name="theme-color" content="#0f131d" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Canonical -->
+<link rel="canonical" href={`https://diicsacv.com${siteUrl}`.replace(/\/+$/, "") + "/"} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={siteTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+<meta property="og:url" content={`https://diicsacv.com${siteUrl}`.replace(/\/+$/, "") + "/"} />
+<meta property="og:locale" content="es_MX" />
+<meta property="og:site_name" content="DIICSA" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={siteTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+
+<!-- Preload críticos -->
+<link rel="preload" as="font" href="/fonts/main.woff2" type="font/woff2" crossorigin />
+
+<!-- DNS Prefetch -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+<title>{siteTitle}</title>

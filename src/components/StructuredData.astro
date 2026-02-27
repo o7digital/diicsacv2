@@ -1,0 +1,60 @@
+---
+interface SchemaOrganization {
+  name: string;
+  url: string;
+  logo: string;
+  description: string;
+  email?: string;
+  phone?: string;
+  address?: {
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  sameAs?: string[];
+}
+
+interface Props {
+  schema?: SchemaOrganization;
+}
+
+const { schema } = Astro.props;
+
+const defaultOrganization: SchemaOrganization = {
+  name: "DIICSA",
+  url: "https://diicsacv.com",
+  logo: "https://diicsacv.com/logo.png",
+  description: "DIICSA - Construcción de calidad. Servicio honesto. Excelente relación calidad-precio.",
+  email: "info@diicsacv.com",
+  phone: "+52-XXXXXXXXXX",
+  address: {
+    streetAddress: "Dirección de DIICSA",
+    addressLocality: "Ciudad de México",
+    addressRegion: "CDMX",
+    postalCode: "XXXXX",
+    addressCountry: "MX"
+  }
+};
+
+const orgSchema = schema || defaultOrganization;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: orgSchema.name,
+  url: orgSchema.url,
+  logo: orgSchema.logo,
+  description: orgSchema.description,
+  email: orgSchema.email,
+  telephone: orgSchema.phone,
+  address: {
+    "@type": "PostalAddress",
+    ...orgSchema.address
+  },
+  sameAs: orgSchema.sameAs || []
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

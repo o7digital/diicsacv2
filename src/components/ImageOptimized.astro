@@ -1,0 +1,57 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  title?: string;
+  width: number;
+  height: number;
+  class?: string;
+  quality?: "high" | "medium" | "low";
+}
+
+const {
+  src,
+  alt,
+  title,
+  width,
+  height,
+  class: className,
+  quality = "high"
+} = Astro.props;
+
+// Validar que alt es présent
+if (!alt) {
+  console.warn(`Image sin atributo alt: ${src}`);
+}
+
+// Generar srcset para diferentes resoluciones (para WebP)
+// En producción, integrar con imagen CDN como Cloudinary o ImageKit
+const baseImage = src.startsWith("/") ? src : `/${src}`;
+const srcset1x = `${baseImage} 1x`;
+const srcset2x = baseImage.replace(/\.webp$/, "@2x.webp") + " 2x";
+
+// Tamaños responsivos (típicos breakpoints mobile, tablet, desktop)
+const responsiveSizes = `(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw`;
+---
+
+<picture>
+  <!-- WebP para navegadores modernos -->
+  <source
+    srcset={`${srcset1x}, ${srcset2x}`}
+    type="image/webp"
+    sizes={responsiveSizes}
+  />
+  
+  <!-- Fallback para navegadores más antiguos -->
+  <img
+    src={baseImage}
+    alt={alt}
+    title={title}
+    width={width}
+    height={height}
+    loading="lazy"
+    decoding="async"
+    class={className}
+    sizes={responsiveSizes}
+  />
+</picture>

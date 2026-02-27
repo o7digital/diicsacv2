@@ -1,0 +1,48 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  title?: string;
+  loading?: "lazy" | "eager";
+  width?: number | string;
+  height?: number | string;
+  class?: string;
+  sizes?: string;
+  srcset?: string;
+  decoding?: "async" | "sync" | "auto";
+}
+
+const {
+  src,
+  alt,
+  title,
+  loading = "lazy",
+  width,
+  height,
+  class: className,
+  sizes,
+  srcset,
+  decoding = "async"
+} = Astro.props;
+
+// Validar que alt es présent
+if (!alt) {
+  console.warn(`Image sin atributo alt: ${src}`);
+}
+
+// Convertir URLs relativas a absolutas si es necesario
+const imageSrc = src.startsWith("/") ? src : `/${src}`;
+---
+
+<img
+  src={imageSrc}
+  alt={alt}
+  title={title}
+  loading={loading}
+  decoding={decoding}
+  {...(width && { width })}
+  {...(height && { height })}
+  {...(className && { class: className })}
+  {...(sizes && { sizes })}
+  {...(srcset && { srcset })}
+/>
