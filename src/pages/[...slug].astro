@@ -1,4 +1,5 @@
 ---
+import MainLayout from "../layouts/MainLayout.astro";
 import snapshot from "../data/wp-snapshot.json";
 
 export function getStaticPaths() {
@@ -251,71 +252,99 @@ function applyTranslations(html: string) {
   return translated;
 }
 
+function stripLegacySeoHead(html: string) {
+  return html
+    .replace(/<title[^>]*>[\s\S]*?<\/title>/gi, "")
+    .replace(/<meta[^>]+name=["']description["'][^>]*>/gi, "")
+    .replace(/<meta[^>]+name=["']robots["'][^>]*>/gi, "")
+    .replace(/<meta[^>]+property=["']og:[^"']+["'][^>]*>/gi, "")
+    .replace(/<meta[^>]+name=["']twitter:[^"']+["'][^>]*>/gi, "")
+    .replace(/<link[^>]+rel=["']canonical["'][^>]*>/gi, "");
+}
+
+function extractMetaDescription(html: string) {
+  const match = html.match(/<meta[^>]+name=["']description["'][^>]*content=["']([^"']+)["'][^>]*>/i);
+  return match?.[1]?.trim();
+}
+
+function extractOgImage(html: string) {
+  const match = html.match(/<meta[^>]+property=["']og:image["'][^>]*content=["']([^"']+)["'][^>]*>/i);
+  return match?.[1]?.trim();
+}
+
+function addImagePerformanceAttributes(html: string) {
+  let updated = html.replace(/<img(?![^>]*\bloading=)([^>]*)>/gi, '<img loading="lazy" decoding="async"$1>');
+  updated = updated.replace(/<img(?![^>]*\bdecoding=)([^>]*)>/gi, '<img decoding="async"$1>');
+  return updated;
+}
+
 const translatedHeadHtml = applyTranslations(page.headHtml ?? "");
 const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
+const seoDescription = extractMetaDescription(translatedHeadHtml);
+const seoImage = extractOgImage(translatedHeadHtml);
+const cleanedHeadHtml = stripLegacySeoHead(translatedHeadHtml);
+const optimizedBodyHtml = addImagePerformanceAttributes(translatedBodyHtml);
+const seoTitle = applyTranslations(page.title ?? "DIICSA");
 ---
+<MainLayout
+  title={seoTitle}
+  description={seoDescription}
+  image={seoImage}
+  bodyAttributes={bodyAttributes}
+>
+  <Fragment slot="head" set:html={cleanedHeadHtml} />
+  <style is:global>
+    /* Hide legacy Graviton menus that should never be visible on this clone. */
+    .menu-menu-primary-container,
+    [id^="menu-menu-primary"],
+    [id^="menu-menu-mobile"],
+    .pxl-header-elementor-sticky {
+      display: none !important;
+    }
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <Fragment set:html={translatedHeadHtml} />
-    <style is:global>
-      /* Hide legacy Graviton menus that should never be visible on this clone. */
-      .menu-menu-primary-container,
-      [id^="menu-menu-primary"],
-      [id^="menu-menu-mobile"],
-      .pxl-header-elementor-sticky {
-        display: none !important;
-      }
+    /* Temporarily hide the "Articulos y Noticias" block. */
+    .elementor-element-ab40a8c {
+      display: none !important;
+    }
 
-      /* Temporarily hide the "Articulos y Noticias" block. */
-      .elementor-element-ab40a8c {
-        display: none !important;
-      }
+    /* Hide orange "ready to work together" info box card. */
+    .elementor-element-14da8a8 {
+      display: none !important;
+    }
 
-      /* Hide orange "ready to work together" info box card. */
-      .elementor-element-14da8a8 {
-        display: none !important;
-      }
+    /* Hide WooCommerce cart icon in header and cart sidebar panel. */
+    #pxl-header-elementor .elementor-widget-icon_cart,
+    #pxl-header-elementor .pxl-cart-sidebar-button,
+    #pxl-cart-sidebar {
+      display: none !important;
+    }
 
-      /* Hide WooCommerce cart icon in header and cart sidebar panel. */
-      #pxl-header-elementor .elementor-widget-icon_cart,
-      #pxl-header-elementor .pxl-cart-sidebar-button,
-      #pxl-cart-sidebar {
-        display: none !important;
-      }
+    /* Hide the floating orange scroll-top circle at the right side/footer. */
+    .pxl-scroll-top {
+      display: none !important;
+    }
 
-      /* Hide the floating orange scroll-top circle at the right side/footer. */
-      .pxl-scroll-top {
-        display: none !important;
-      }
+    /* Hide buttons explicitly labeled "leer mas". */
+    .pxl-button:has(.pxl--btn-text[data-text="leer mas" i]),
+    .elementor-widget-pxl_button:has(.pxl--btn-text[data-text="leer mas" i]) {
+      display: none !important;
+    }
 
-      /* Hide buttons explicitly labeled "leer mas". */
-      .pxl-button:has(.pxl--btn-text[data-text="leer mas" i]),
-      .elementor-widget-pxl_button:has(.pxl--btn-text[data-text="leer mas" i]) {
-        display: none !important;
-      }
+    /* Increase DIICSA top-left header logo by ~40% from current size. */
+    #pxl-header-elementor .elementor-element-d9df9fe .pxl-logo img {
+      max-height: 104px !important;
+      width: auto !important;
+    }
 
-      /* Increase DIICSA top-left header logo by ~40% from current size. */
+    @media (max-width: 1600px) {
       #pxl-header-elementor .elementor-element-d9df9fe .pxl-logo img {
-        max-height: 104px !important;
-        width: auto !important;
+        max-height: 95px !important;
       }
-
-      @media (max-width: 1600px) {
-        #pxl-header-elementor .elementor-element-d9df9fe .pxl-logo img {
-          max-height: 95px !important;
-        }
-      }
-    </style>
-  </head>
-  <body {...bodyAttributes}>
-    <Fragment set:html={translatedBodyHtml} />
-    <script is:inline>
-      (() => {
+    }
+  </style>
+  <Fragment set:html={optimizedBodyHtml} />
+  <script is:inline>
+    (() => {
         function hasOnePageMenu(scope) {
           return Boolean(scope?.querySelector('[id^="menu-menu-one-page"]'));
         }
@@ -581,6 +610,5 @@ const translatedBodyHtml = applyTranslations(page.bodyHtml ?? "");
 
         window.addEventListener("scroll", scheduleCleanup, { passive: true });
       })();
-    </script>
-  </body>
-</html>
+  </script>
+</MainLayout>

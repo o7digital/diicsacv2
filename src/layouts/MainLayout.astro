@@ -11,13 +11,15 @@ interface Props {
   description?: string;
   image?: string;
   robots?: string;
+  bodyAttributes?: Record<string, string>;
 }
 
 const {
   title,
   description,
   image = "https://diicsacv.com/og-image.jpg",
-  robots
+  robots,
+  bodyAttributes = {}
 } = Astro.props;
 ---
 
@@ -32,6 +34,7 @@ const {
       robots={robots}
     />
     <StructuredData />
+    <slot name="head" />
     <!-- Estilos globales -->
     <style is:global>
       :root {
@@ -70,7 +73,7 @@ const {
       }
     </style>
   </head>
-  <body>
+  <body {...bodyAttributes}>
     <slot />
   </body>
 </html>
