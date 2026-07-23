@@ -26,28 +26,41 @@ const bodyHtmlToInject = page.bodyHtml ?? "";
       }
 
       #pxl-header-elementor .elementor-widget-pxl_logo,
-      #pxl-header-elementor .pxl-logo {
+      #pxl-header-elementor .pxl-logo,
+      #pxl-header-elementor .pxl-logo a {
         width: 180px !important;
         min-width: 180px !important;
+        max-width: none !important;
       }
 
-      #pxl-header-elementor .pxl-logo img {
+      #pxl-header-elementor .pxl-logo img,
+      #pxl-header-elementor img.diicsa-header-logo,
+      #pxl-header-elementor img[src*="diccsA.png"] {
+        display: block !important;
         width: 180px !important;
         height: 180px !important;
+        min-width: 180px !important;
+        min-height: 180px !important;
         max-width: none !important;
+        max-height: none !important;
         object-fit: contain !important;
       }
 
       @media (max-width: 767px) {
         #pxl-header-elementor .elementor-widget-pxl_logo,
-        #pxl-header-elementor .pxl-logo {
+        #pxl-header-elementor .pxl-logo,
+        #pxl-header-elementor .pxl-logo a {
           width: 140px !important;
           min-width: 140px !important;
         }
 
-        #pxl-header-elementor .pxl-logo img {
+        #pxl-header-elementor .pxl-logo img,
+        #pxl-header-elementor img.diicsa-header-logo,
+        #pxl-header-elementor img[src*="diccsA.png"] {
           width: 140px !important;
           height: 140px !important;
+          min-width: 140px !important;
+          min-height: 140px !important;
         }
       }
     </style>
