@@ -368,5 +368,28 @@ const lastUpdated = "Agosto 2025";
       </section>
     </main>
     <Fragment set:html={footerHtmlToInject} />
+    <script is:inline>
+      (() => {
+        const sectionMap = {
+          about: ".elementor-element-cf670d7",
+          services: ".elementor-element-398cfb4",
+          projects: ".elementor-element-59ae6b1",
+          blog: ".elementor-element-101e5ed"
+        };
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element ? event.target : null;
+          const link = target?.closest('a[href^="#"]');
+          if (!link) return;
+          const hash = link.getAttribute("href");
+          if (!hash || hash === "#") return;
+          if (sectionMap[hash.replace("#", "")]) {
+            event.preventDefault();
+            event.stopPropagation();
+            window.location.href = `/${hash}`;
+          }
+        }, true);
+      })();
+    </script>
   </body>
 </html>

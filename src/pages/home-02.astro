@@ -133,5 +133,64 @@ const bodyHtmlToInject = page.bodyHtml ?? "";
   </head>
   <body {...bodyAttributes}>
     <Fragment set:html={bodyHtmlToInject} />
+    <script is:inline>
+      (() => {
+        const sectionMap = {
+          about: ".elementor-element-cf670d7",
+          services: ".elementor-element-398cfb4",
+          projects: ".elementor-element-59ae6b1",
+          blog: ".elementor-element-101e5ed"
+        };
+
+        const setSectionIds = () => {
+          Object.entries(sectionMap).forEach(([id, selector]) => {
+            const section = document.querySelector(selector);
+            if (section) {
+              section.id = id;
+              section.style.scrollMarginTop = "170px";
+            }
+          });
+        };
+
+        const scrollToHash = (hash) => {
+          const id = hash.replace("#", "");
+          const target = document.getElementById(id) || document.querySelector(sectionMap[id]);
+          if (!target) return false;
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, "", `#${id}`);
+          return true;
+        };
+
+        const handleAnchorClick = (event) => {
+          const target = event.target instanceof Element ? event.target : null;
+          const link = target?.closest('a[href^="#"]');
+          if (!link) return;
+          const hash = link.getAttribute("href");
+          if (!hash || hash === "#") return;
+          if (scrollToHash(hash)) {
+            event.preventDefault();
+            event.stopPropagation();
+          } else if (sectionMap[hash.replace("#", "")]) {
+            event.preventDefault();
+            event.stopPropagation();
+            window.location.href = `/${hash}`;
+          }
+        };
+
+        const ready = () => {
+          setSectionIds();
+          if (window.location.hash) {
+            setTimeout(() => scrollToHash(window.location.hash), 120);
+          }
+          document.addEventListener("click", handleAnchorClick, true);
+        };
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", ready);
+        } else {
+          ready();
+        }
+      })();
+    </script>
   </body>
 </html>
