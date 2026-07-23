@@ -82,9 +82,19 @@ const bodyHtmlToInject = applySiteHtml(page.bodyHtml ?? "");
         display: none !important;
       }
 
+      #pxl-footer-elementor .elementor-widget-pxl_logo,
+      #pxl-footer-elementor .elementor-widget-pxl_logo .pxl-logo,
+      #pxl-footer-elementor .elementor-widget-pxl_logo .pxl-logo a {
+        width: 180px !important;
+        min-width: 180px !important;
+        max-width: none !important;
+      }
+
       #pxl-footer-elementor .elementor-widget-pxl_logo .pxl-logo img {
-        width: 90px !important;
-        height: 90px !important;
+        width: 180px !important;
+        height: 180px !important;
+        min-width: 180px !important;
+        min-height: 180px !important;
         max-width: none !important;
         object-fit: contain !important;
       }
