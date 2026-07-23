@@ -1,17 +1,32 @@
 ---
+import snapshot from "../data/wp-snapshot.json";
+
+const page = snapshot.pages.find((item) => item.path === "/home-02-one-page/") ?? snapshot.pages[0];
+const bodyAttributes = page.bodyAttributes ?? {};
+const headHtmlToInject = page.headHtml ?? "";
+const bodyHtmlToInject = page.bodyHtml ?? "";
 ---
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0;url=/home-02-one-page/" />
-    <link rel="canonical" href="/home-02-one-page/" />
-    <title>Redirigiendo...</title>
-    <script>
-      window.location.replace('/home-02-one-page/');
-    </script>
+    <Fragment set:html={headHtmlToInject} />
+    <style is:global>
+      #pxl-header-elementor .pxl-header-elementor-sticky,
+      #pxl-header-elementor.pxl-header-fixed,
+      #pxl-header-elementor.pxl-header-sticky {
+        display: none !important;
+      }
+
+      .elementor-73 .elementor-element.elementor-element-14da8a8 > .elementor-widget-container {
+        background-color: #0B4F8A !important;
+        background-image:
+          linear-gradient(135deg, rgba(11, 79, 138, 0.96), rgba(8, 58, 102, 0.9)),
+          url("/wp-content/uploads/2024/01/bg-h2-2.jpg") !important;
+        background-blend-mode: multiply, luminosity;
+      }
+    </style>
   </head>
-  <body>
-    <p>Redirigiendo a <a href="/home-02-one-page/">Home 02</a>...</p>
+  <body {...bodyAttributes}>
+    <Fragment set:html={bodyHtmlToInject} />
   </body>
 </html>
