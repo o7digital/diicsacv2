@@ -243,18 +243,18 @@ async function mapWithConcurrency(values, limit, mapper) {
 
 async function fetchPageSnapshot(url) {
   const { data: html, response } = await fetchWithRetry(url, "text");
+  const contentType = (response.headers.get("content-type") ?? "").toLowerCase();
+  if (contentType && !contentType.includes("text/html")) {
+    throw new Error(`contenu non-HTML (${contentType})`);
+  }
   const resolvedUrl = response.url || url;
   const resolved = new URL(resolvedUrl);
 
   const headMatch = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
   const bodyMatch = html.match(/<body([^>]*)>([\s\S]*?)<\/body>/i);
-
-  if (!bodyMatch) {
-    throw new Error("balise <body> introuvable");
-  }
-
   const rawHead = headMatch?.[1] ?? "";
-  const rawBody = bodyMatch[2] ?? "";
+  const rawBody = bodyMatch ? bodyMatch[2] ?? "" : html;
+  const bodyAttributes = bodyMatch ? parseBodyAttributes(bodyMatch[1] ?? "") : {};
 
   const titleMatch = rawHead.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
 
@@ -269,7 +269,7 @@ async function fetchPageSnapshot(url) {
     title: decodeEntities((titleMatch?.[1] ?? "").trim()),
     headHtml: rewriteSiteUrls(rawHead),
     bodyHtml: rewriteSiteUrls(rawBody),
-    bodyAttributes: parseBodyAttributes(bodyMatch[1] ?? ""),
+    bodyAttributes,
     assets: [...assets]
   };
 }
