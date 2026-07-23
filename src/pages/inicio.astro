@@ -24,6 +24,32 @@ const bodyHtmlToInject = page.bodyHtml ?? "";
           url("/wp-content/uploads/2024/01/bg-h2-2.jpg") !important;
         background-blend-mode: multiply, luminosity;
       }
+
+      #pxl-header-elementor .elementor-widget-pxl_logo,
+      #pxl-header-elementor .pxl-logo {
+        width: 92px !important;
+        min-width: 92px !important;
+      }
+
+      #pxl-header-elementor .pxl-logo img {
+        width: 92px !important;
+        height: 92px !important;
+        max-width: none !important;
+        object-fit: contain !important;
+      }
+
+      @media (max-width: 767px) {
+        #pxl-header-elementor .elementor-widget-pxl_logo,
+        #pxl-header-elementor .pxl-logo {
+          width: 72px !important;
+          min-width: 72px !important;
+        }
+
+        #pxl-header-elementor .pxl-logo img {
+          width: 72px !important;
+          height: 72px !important;
+        }
+      }
     </style>
   </head>
   <body {...bodyAttributes}>
