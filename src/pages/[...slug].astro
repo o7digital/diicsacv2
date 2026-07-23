@@ -1,6 +1,6 @@
 ---
 import snapshot from "../data/wp-snapshot.json";
-import { applySiteHtml } from "../lib/site-html";
+import { applySiteHead, applySiteHtml } from "../lib/site-html";
 
 export function getStaticPaths() {
   const customServicePaths = new Set([
@@ -23,7 +23,7 @@ export function getStaticPaths() {
 
 const { page } = Astro.props;
 const bodyAttributes = page.bodyAttributes ?? {};
-const headHtmlToInject = page.headHtml ?? "";
+const headHtmlToInject = applySiteHead(page.headHtml ?? "");
 const bodyHtmlToInject = applySiteHtml(page.bodyHtml ?? "");
 ---
 <!doctype html>
@@ -68,6 +68,7 @@ const bodyHtmlToInject = applySiteHtml(page.bodyHtml ?? "");
 
       #pxl-header-elementor .elementor-element-ec35d7d,
       #pxl-header-elementor .elementor-element-46d1c2c,
+      #pxl-header-elementor .elementor-widget-pxl_language_switch,
       #pxl-footer-elementor .elementor-element-7c35214,
       .woosc-area,
       .woosc-popup,
