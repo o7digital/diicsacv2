@@ -3,7 +3,7 @@ const clientesMenuItem = `
   <a href="/clientes/"><span class="pxl-menu-item-text">Clientes<i class="caseicon-angle-arrow-down pxl-hide"></i><span class="pxl-item-menu-icon pxl-hide "></span></span></a>
 </li>`;
 
-const footerCredit = `<span style="color: rgba(255,255,255,.88);">Sitio realizado por <a href="https://www.o7digital.com/" target="_blank" rel="noopener" style="color: #ffffff; font-weight: 800; text-decoration: underline; text-underline-offset: 3px;">o7Digital</a></span>`;
+const footerCredit = `<span style="color: rgba(255,255,255,.88);">Copyright © 2024 DIICSA. Todos los derechos reservados. Sitio realizado por <a href="https://www.o7digital.com/" target="_blank" rel="noopener" style="color: #ffffff; font-weight: 800; text-decoration: underline; text-underline-offset: 3px;">o7Digital</a></span>`;
 const diicsaLogoImage = `<img width="2048" height="2048" src="/wp-content/uploads/2024/08/diccsA.png" class="attachment-full diicsa-header-logo" alt="DIICSA" style="width:180px !important;height:180px !important;max-width:none !important;object-fit:contain !important;" />`;
 
 const textReplacements = [
