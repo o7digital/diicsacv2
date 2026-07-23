@@ -1,5 +1,6 @@
 ---
 import snapshot from "../data/wp-snapshot.json";
+import { applySiteHtml } from "../lib/site-html";
 
 const shellPage = snapshot.pages.find((item) => item.path === "/") ?? snapshot.pages[0];
 const bodyAttributes = shellPage.bodyAttributes ?? {};
@@ -9,8 +10,8 @@ const mainMarker = '<div id="pxl-main">';
 const footerMarker = '<footer id="pxl-footer-elementor"';
 const mainIndex = shellBodyHtml.indexOf(mainMarker);
 const footerIndex = shellBodyHtml.indexOf(footerMarker);
-const headerHtmlToInject = mainIndex >= 0 ? shellBodyHtml.slice(0, mainIndex) : "";
-const footerHtmlToInject = footerIndex >= 0 ? shellBodyHtml.slice(footerIndex) : "";
+const headerHtmlToInject = applySiteHtml(mainIndex >= 0 ? shellBodyHtml.slice(0, mainIndex) : "");
+const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(footerIndex) : "");
 const lastUpdated = "Agosto 2025";
 ---
 

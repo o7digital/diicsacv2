@@ -1,15 +1,11 @@
 ---
 import snapshot from "../data/wp-snapshot.json";
+import { applySiteHtml } from "../lib/site-html";
 
 const page = snapshot.pages.find((item) => item.path === "/home-02-one-page/") ?? snapshot.pages[0];
 const bodyAttributes = page.bodyAttributes ?? {};
 const headHtmlToInject = page.headHtml ?? "";
-const localizeHtml = (html) =>
-  html.replace(
-    "DIICSA offers both emergency roof leak and non-emergency roof repair services to both commercial.",
-    "DIICSA ejecuta obra civil, rehabilitacion y mantenimiento general con personal capacitado y seguimiento en cada proyecto."
-  );
-const bodyHtmlToInject = localizeHtml(page.bodyHtml ?? "");
+const bodyHtmlToInject = applySiteHtml(page.bodyHtml ?? "");
 ---
 <!doctype html>
 <html lang="es">

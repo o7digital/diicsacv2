@@ -18,10 +18,10 @@ const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(
 <html lang="es">
   <head>
     <Fragment set:html={headHtmlToInject} />
-    <title>Historia | DIICSA</title>
+    <title>Clientes | DIICSA</title>
     <meta
       name="description"
-      content="DIICSA es una empresa 100% mexicana fundada en 2002, especializada en diseno, construccion y mantenimiento integral."
+      content="Hemos colaborado con corporativos, plantas industriales, centros de entrenamiento y empresas que requieren continuidad, seguridad y respuesta tecnica."
     />
     <style is:global>
       #pxl-header-elementor .pxl-header-elementor-sticky,
@@ -61,41 +61,41 @@ const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(
         display: none !important;
       }
 
-      .history-page {
+      .clients-page {
         background: #fff;
       }
 
-      .history-hero {
+      .clients-hero {
         position: relative;
-        min-height: 460px;
+        min-height: 480px;
         display: grid;
         align-items: end;
         overflow: hidden;
         background: #121315;
       }
 
-      .history-hero::before {
+      .clients-hero::before {
         content: "";
         position: absolute;
         inset: 0;
         background:
-          linear-gradient(90deg, rgba(18, 19, 21, 0.9), rgba(18, 19, 21, 0.42)),
-          url("/wp-content/uploads/2024/01/ptt-history.webp") center / cover no-repeat;
+          linear-gradient(90deg, rgba(18, 19, 21, 0.9), rgba(18, 19, 21, 0.38)),
+          url("/wp-content/uploads/2024/01/clientes-blueprints.jpg") center / cover no-repeat;
       }
 
-      .history-hero__inner,
-      .history-content {
+      .clients-hero__inner,
+      .clients-content {
         width: min(1180px, calc(100% - 40px));
         margin: 0 auto;
       }
 
-      .history-hero__inner {
+      .clients-hero__inner {
         position: relative;
-        padding: 84px 0;
+        padding: 88px 0;
         color: #fff;
       }
 
-      .history-eyebrow {
+      .clients-eyebrow {
         display: inline-flex;
         align-items: center;
         gap: 12px;
@@ -107,14 +107,14 @@ const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(
         text-transform: uppercase;
       }
 
-      .history-eyebrow::before {
+      .clients-eyebrow::before {
         content: "";
         width: 10px;
         height: 10px;
         background: #0B4F8A;
       }
 
-      .history-hero h1 {
+      .clients-hero h1 {
         max-width: 760px;
         margin: 0;
         color: #fff;
@@ -122,69 +122,90 @@ const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(
         line-height: 1;
       }
 
-      .history-content {
+      .clients-content {
         display: grid;
-        grid-template-columns: 0.95fr 1.35fr;
-        gap: 56px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: 54px;
         padding: 78px 0 96px;
       }
 
-      .history-card {
-        align-self: start;
-        background: #0B4F8A;
-        color: #fff;
-        padding: 36px;
-      }
-
-      .history-card strong {
-        display: block;
-        font-size: 72px;
-        line-height: 0.95;
-      }
-
-      .history-card span {
-        display: block;
-        margin-top: 14px;
-        font-size: 15px;
-        font-weight: 800;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-      }
-
-      .history-copy h2 {
+      .clients-copy h2,
+      .clients-note h2 {
         margin: 0 0 24px;
         color: #121315;
         font-size: clamp(32px, 4vw, 52px);
         line-height: 1.12;
       }
 
-      .history-copy p {
-        margin: 0 0 22px;
-        color: #666;
+      .clients-copy p,
+      .clients-note p,
+      .clients-note li {
+        color: #626b76;
         font-size: 18px;
-        line-height: 1.8;
+        line-height: 1.75;
       }
 
-      .history-highlight {
-        margin-top: 34px;
-        border-left: 6px solid #0B4F8A;
-        background: #f4f7fb;
-        padding: 28px 30px;
+      .clients-copy p {
+        margin: 0 0 22px;
+      }
+
+      .clients-sectors {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 32px;
+      }
+
+      .clients-sector {
+        border-left: 5px solid #0B4F8A;
+        background: #f5f8fb;
+        padding: 20px;
         color: #121315;
-        font-size: 22px;
+        font-size: 18px;
         font-weight: 800;
-        line-height: 1.55;
       }
 
-      .history-actions {
-        margin-top: 36px;
+      .clients-note {
+        align-self: start;
+        border-top: 5px solid #0B4F8A;
+        background: #121315;
+        padding: 32px;
       }
 
-      .history-button {
+      .clients-note h2,
+      .clients-note p,
+      .clients-note li {
+        color: #fff;
+      }
+
+      .clients-note ul {
+        margin: 22px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .clients-note li {
+        position: relative;
+        padding-left: 24px;
+        margin-bottom: 12px;
+      }
+
+      .clients-note li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 14px;
+        width: 8px;
+        height: 8px;
+        background: #0B4F8A;
+      }
+
+      .clients-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         min-height: 56px;
+        margin-top: 28px;
         padding: 0 28px;
         background: #0B4F8A;
         color: #fff !important;
@@ -218,7 +239,8 @@ const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(
       }
 
       @media (max-width: 900px) {
-        .history-content {
+        .clients-content,
+        .clients-sectors {
           grid-template-columns: 1fr;
         }
       }
@@ -244,42 +266,47 @@ const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(
   </head>
   <body {...bodyAttributes}>
     <Fragment set:html={headerHtmlToInject} />
-    <main id="pxl-main" class="history-page">
-      <section class="history-hero">
-        <div class="history-hero__inner">
-          <div class="history-eyebrow">Quienes somos</div>
-          <h1>Historia DIICSA</h1>
+    <main id="pxl-main" class="clients-page">
+      <section class="clients-hero">
+        <div class="clients-hero__inner">
+          <div class="clients-eyebrow">Experiencia</div>
+          <h1>Clientes</h1>
         </div>
       </section>
 
-      <section class="history-content">
-        <aside class="history-card">
-          <strong>2002</strong>
-          <span>Fundacion de DIICSA</span>
-        </aside>
-
-        <article class="history-copy">
-          <h2>Empresa mexicana con experiencia tecnica y enfoque practico.</h2>
+      <section class="clients-content">
+        <article class="clients-copy">
+          <h2>Relaciones de largo plazo para operaciones que no pueden detenerse.</h2>
           <p>
-            DIICSA es una empresa 100% mexicana fundada en 2002, especializada en diseno, construccion y mantenimiento
-            integral a empresas y particulares.
+            Hemos colaborado con corporativos, plantas industriales, centros de entrenamiento y empresas que requieren
+            continuidad, seguridad y respuesta tecnica.
           </p>
           <p>
-            Actualmente tenemos presencia en la Republica Mexicana, respaldando proyectos con experiencia tecnica,
-            capacidad operativa y una forma de trabajo enfocada en resolver con orden, calidad y seguimiento.
+            Nuestro trabajo se enfoca en relaciones de largo plazo y soluciones claras para cada operacion. DIICSA
+            acompana a sus clientes con planeacion, supervision y capacidad de respuesta en campo.
           </p>
-          <p>
-            Nuestro equipo acompana cada proyecto desde la planeacion hasta la ejecucion, integrando servicios de obra
-            civil, obra electrica, procesos mecanicos, rehabilitacion, habilitacion y mantenimiento industrial.
-          </p>
-          <div class="history-highlight">
-            Construimos relaciones de largo plazo a traves de trabajo responsable, comunicacion clara y soluciones
-            alineadas a las necesidades reales de cada cliente.
+          <div class="clients-sectors">
+            <div class="clients-sector">Corporativos</div>
+            <div class="clients-sector">Plantas industriales</div>
+            <div class="clients-sector">Centros de entrenamiento</div>
+            <div class="clients-sector">Empresas con operacion continua</div>
           </div>
-          <div class="history-actions">
-            <a class="history-button" href="/contact-us/#cotizacion">Solicitar cotizacion</a>
-          </div>
+          <a class="clients-button" href="/contact-us/#cotizacion">Solicitar cotizacion</a>
         </article>
+
+        <aside class="clients-note">
+          <h2>Por documentar</h2>
+          <p>
+            La lista nominal de clientes queda pendiente para que el cliente confirme que empresas, proyectos y
+            testimonios desea publicar.
+          </p>
+          <ul>
+            <li>Nombre comercial autorizado</li>
+            <li>Tipo de proyecto ejecutado</li>
+            <li>Imagenes o logotipos con permiso de uso</li>
+            <li>Resultados o alcance que pueda compartirse publicamente</li>
+          </ul>
+        </aside>
       </section>
     </main>
     <Fragment set:html={footerHtmlToInject} />
@@ -287,12 +314,10 @@ const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(
       (() => {
         const sectionMap = {
           about: ".elementor-element-cf670d7",
-          services: ".elementor-element-398cfb4",
-          projects: ".elementor-element-59ae6b1",
-          blog: ".elementor-element-101e5ed"
+          services: ".elementor-element-398cfb4"
         };
 
-        document.addEventListener("click", (event) => {
+        const handleAnchorClick = (event) => {
           const target = event.target instanceof Element ? event.target : null;
           const link = target?.closest('a[href^="#"]');
           if (!link) return;
@@ -303,7 +328,10 @@ const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(
             event.stopPropagation();
             window.location.href = `/${hash}`;
           }
-        }, true);
+        };
+
+        window.addEventListener("click", handleAnchorClick, true);
+        document.addEventListener("click", handleAnchorClick, true);
       })();
     </script>
   </body>

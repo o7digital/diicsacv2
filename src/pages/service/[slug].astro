@@ -1,6 +1,7 @@
 ---
 import snapshot from "../../data/wp-snapshot.json";
 import { services } from "../../data/services";
+import { applySiteHtml } from "../../lib/site-html";
 
 export function getStaticPaths() {
   return Object.keys(services).map((slug) => ({
@@ -18,8 +19,8 @@ const mainMarker = '<div id="pxl-main">';
 const footerMarker = '<footer id="pxl-footer-elementor"';
 const mainIndex = shellBodyHtml.indexOf(mainMarker);
 const footerIndex = shellBodyHtml.indexOf(footerMarker);
-const headerHtmlToInject = mainIndex >= 0 ? shellBodyHtml.slice(0, mainIndex) : "";
-const footerHtmlToInject = footerIndex >= 0 ? shellBodyHtml.slice(footerIndex) : "";
+const headerHtmlToInject = applySiteHtml(mainIndex >= 0 ? shellBodyHtml.slice(0, mainIndex) : "");
+const footerHtmlToInject = applySiteHtml(footerIndex >= 0 ? shellBodyHtml.slice(footerIndex) : "");
 ---
 
 <!doctype html>
