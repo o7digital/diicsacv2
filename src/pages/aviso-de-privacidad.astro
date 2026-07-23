@@ -1,289 +1,306 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
+import snapshot from "../data/wp-snapshot.json";
 
+const shellPage = snapshot.pages.find((item) => item.path === "/") ?? snapshot.pages[0];
+const bodyAttributes = shellPage.bodyAttributes ?? {};
+const headHtmlToInject = shellPage.headHtml ?? "";
+const shellBodyHtml = shellPage.bodyHtml ?? "";
+const mainMarker = '<div id="pxl-main">';
+const footerMarker = '<footer id="pxl-footer-elementor"';
+const mainIndex = shellBodyHtml.indexOf(mainMarker);
+const footerIndex = shellBodyHtml.indexOf(footerMarker);
+const headerHtmlToInject = mainIndex >= 0 ? shellBodyHtml.slice(0, mainIndex) : "";
+const footerHtmlToInject = footerIndex >= 0 ? shellBodyHtml.slice(footerIndex) : "";
 const lastUpdated = "Agosto 2025";
-const description =
-  "Aviso de Privacidad de DIICSA INFRAESTRUCTURA conforme a la legislacion aplicable en Mexico y otros marcos de privacidad relevantes.";
 ---
 
-<MainLayout title="Aviso de Privacidad" description={description}>
-  <style is:global>
-    :root {
-      --bg: #0f131d;
-      --card: #ffffff;
-      --text: #1a1f2b;
-      --muted: #5a6475;
-      --accent: #0B4F8A;
-      --line: #e8ebf0;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background: linear-gradient(160deg, #121824 0%, #0f131d 60%, #1a2334 100%);
-      color: var(--text);
-    }
-
-    .wrap {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 20px 64px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 14px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-    }
-
-    .hero {
-      background: #121824;
-      color: #fff;
-      padding: 28px 28px 24px;
-      border-bottom: 4px solid var(--accent);
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(28px, 4vw, 40px);
-      line-height: 1.1;
-    }
-
-    .hero p {
-      margin: 12px 0 0;
-      color: #c7d1e5;
-    }
-
-    .content {
-      padding: 28px;
-    }
-
-    h2 {
-      margin: 0 0 12px;
-      font-size: 22px;
-    }
-
-    h3 {
-      margin: 24px 0 10px;
-      font-size: 18px;
-    }
-
-    p,
-    li {
-      line-height: 1.65;
-      color: #2a3345;
-    }
-
-    ul {
-      margin: 10px 0;
-      padding-left: 20px;
-    }
-
-    .meta {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .box {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 14px;
-      background: #fafbfc;
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-
-    .btn {
-      display: inline-block;
-      border: 0;
-      border-radius: 8px;
-      padding: 11px 16px;
-      font-weight: 700;
-      font-size: 14px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .btn-ghost {
-      background: #eef1f6;
-      color: #111827;
-    }
-
-    a {
-      color: #083A66;
-    }
-
-    footer {
-      margin-top: 18px;
-      font-size: 13px;
-      color: #6a7384;
-    }
-
-    @media (max-width: 780px) {
-      .grid {
-        grid-template-columns: 1fr;
+<!doctype html>
+<html lang="es">
+  <head>
+    <Fragment set:html={headHtmlToInject} />
+    <style is:global>
+      #pxl-header-elementor .pxl-header-elementor-sticky,
+      #pxl-header-elementor.pxl-header-fixed,
+      #pxl-header-elementor.pxl-header-sticky {
+        display: none !important;
       }
-    }
 
-    @media print {
-      body {
+      #pxl-header-elementor .elementor-widget-pxl_logo,
+      #pxl-header-elementor .pxl-logo,
+      #pxl-header-elementor .pxl-logo a {
+        width: 180px !important;
+        min-width: 180px !important;
+        max-width: none !important;
+      }
+
+      #pxl-header-elementor .pxl-logo img,
+      #pxl-header-elementor img.diicsa-header-logo,
+      #pxl-header-elementor img[src*="diccsA.png"] {
+        display: block !important;
+        width: 180px !important;
+        height: 180px !important;
+        min-width: 180px !important;
+        min-height: 180px !important;
+        max-width: none !important;
+        max-height: none !important;
+        object-fit: contain !important;
+      }
+
+      .privacy-page {
         background: #fff;
+        padding: 80px 20px 92px;
       }
 
-      .wrap {
-        max-width: none;
-        padding: 0;
+      .privacy-notice {
+        max-width: 1120px;
+        margin: 0 auto;
+        color: #1a1f2b;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
 
-      .card {
-        box-shadow: none;
-        border-radius: 0;
+      .privacy-notice__eyebrow {
+        color: #0B4F8A;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        margin-bottom: 16px;
+        text-transform: uppercase;
       }
 
-      .hero {
+      .privacy-notice h1 {
+        margin: 0 0 18px;
+        color: #121315;
+        font-size: clamp(38px, 5vw, 66px);
+        line-height: 1.04;
+      }
+
+      .privacy-notice__intro {
+        max-width: 860px;
+        margin: 0 0 32px;
+        color: #666;
+        font-size: 19px;
+        line-height: 1.7;
+      }
+
+      .privacy-notice__panel {
+        border-top: 5px solid #0B4F8A;
         background: #fff;
-        color: #111;
-        border-bottom-color: #111;
+        box-shadow: 0 20px 60px rgba(18, 19, 21, 0.08);
+        padding: 38px;
       }
 
-      .hero p {
-        color: #444;
+      .privacy-notice__meta {
+        margin: 0 0 24px;
+        color: #777;
+        font-size: 15px;
       }
 
-      .actions {
-        display: none;
+      .privacy-notice h2 {
+        margin: 30px 0 14px;
+        color: #121315;
+        font-size: 28px;
+        line-height: 1.25;
       }
-    }
-  </style>
-  <main class="wrap">
-    <article class="card">
-      <header class="hero">
-        <h1>Aviso de Privacidad</h1>
-        <p>
-          DIICSA INFRAESTRUCTURA es responsable del tratamiento de sus datos personales conforme a la legislacion
-          aplicable en Mexico y otros marcos de privacidad relevantes.
-        </p>
-      </header>
 
-      <section class="content">
-        <p class="meta">Fecha de ultima actualizacion: {lastUpdated}</p>
+      .privacy-notice h2:first-of-type {
+        margin-top: 0;
+      }
 
-        <h2>Aviso de Privacidad - DIICSA INFRAESTRUCTURA</h2>
-        <p>
-          DIICSA INFRAESTRUCTURA (en lo sucesivo, "DIICSA"), con domicilio en Calle Bosque de Fresno, MZA 74 Lote 11
-          Apartado A, Lomas de Bosques, 54765 Cuautitlan Izcalli, CDMX, Mexico, telefono +52 55 3396 2097, es
-          responsable del tratamiento de sus datos personales conforme a lo dispuesto en la Ley Federal de Proteccion
-          de Datos Personales en Posesion de los Particulares (Mexico), el Reglamento General de Proteccion de Datos
-          (RGPD) y la California Consumer Privacy Act (CCPA).
-        </p>
+      .privacy-notice p,
+      .privacy-notice li {
+        color: #3d4654;
+        font-size: 17px;
+        line-height: 1.75;
+      }
 
-        <div class="grid">
-          <div class="box">
-            <strong>Correo de contacto</strong>
-            <p><a href="mailto:privacidad@diicsacv.com">privacidad@diicsacv.com</a></p>
+      .privacy-notice ul {
+        margin: 8px 0 20px;
+        padding-left: 22px;
+      }
+
+      .privacy-notice__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin: 26px 0 34px;
+      }
+
+      .privacy-notice__box {
+        border: 1px solid #e5e8ee;
+        background: #f8fafc;
+        padding: 20px;
+      }
+
+      .privacy-notice__box strong {
+        display: block;
+        margin-bottom: 10px;
+        color: #121315;
+        font-size: 18px;
+      }
+
+      .privacy-notice a {
+        color: #0B4F8A;
+        font-weight: 700;
+      }
+
+      .privacy-notice__actions {
+        margin-top: 34px;
+      }
+
+      .privacy-notice__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 0 28px;
+        background: #0B4F8A;
+        color: #fff !important;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 767px) {
+        #pxl-header-elementor .elementor-widget-pxl_logo,
+        #pxl-header-elementor .pxl-logo,
+        #pxl-header-elementor .pxl-logo a {
+          width: 140px !important;
+          min-width: 140px !important;
+        }
+
+        #pxl-header-elementor .pxl-logo img,
+        #pxl-header-elementor img.diicsa-header-logo,
+        #pxl-header-elementor img[src*="diccsA.png"] {
+          width: 140px !important;
+          height: 140px !important;
+          min-width: 140px !important;
+          min-height: 140px !important;
+        }
+
+        .privacy-page {
+          padding: 48px 16px 64px;
+        }
+
+        .privacy-notice__panel {
+          padding: 26px 20px;
+        }
+
+        .privacy-notice__grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body {...bodyAttributes}>
+    <Fragment set:html={headerHtmlToInject} />
+    <main id="pxl-main">
+      <section class="privacy-page">
+        <article class="privacy-notice">
+          <div class="privacy-notice__eyebrow">DIICSA Infraestructura</div>
+          <h1>Aviso de Privacidad</h1>
+          <p class="privacy-notice__intro">
+            DIICSA INFRAESTRUCTURA es responsable del tratamiento de sus datos personales conforme a la legislacion
+            aplicable en Mexico y otros marcos de privacidad relevantes.
+          </p>
+
+          <div class="privacy-notice__panel">
+            <p class="privacy-notice__meta">Fecha de ultima actualizacion: {lastUpdated}</p>
+
+            <h2>Aviso de Privacidad - DIICSA INFRAESTRUCTURA</h2>
+            <p>
+              DIICSA INFRAESTRUCTURA (en lo sucesivo, "DIICSA"), con domicilio en Calle Bosque de Fresno, MZA 74 Lote
+              11 Apartado A, Lomas de Bosques, 54765 Cuautitlan Izcalli, CDMX, Mexico, telefono +52 55 3396 2097, es
+              responsable del tratamiento de sus datos personales conforme a lo dispuesto en la Ley Federal de
+              Proteccion de Datos Personales en Posesion de los Particulares (Mexico), el Reglamento General de
+              Proteccion de Datos (RGPD) y la California Consumer Privacy Act (CCPA).
+            </p>
+
+            <div class="privacy-notice__grid">
+              <div class="privacy-notice__box">
+                <strong>Correo de contacto</strong>
+                <a href="mailto:privacidad@diicsacv.com">privacidad@diicsacv.com</a>
+              </div>
+              <div class="privacy-notice__box">
+                <strong>Telefono</strong>
+                <a href="tel:+525533962097">+52 55 3396 2097</a>
+              </div>
+            </div>
+
+            <h2>1. Datos que recabamos</h2>
+            <p>Podemos recopilar:</p>
+            <ul>
+              <li>Datos de identificacion, como nombre, direccion, correo electronico y telefono.</li>
+              <li>Datos fiscales y financieros para fines de facturacion y pagos.</li>
+              <li>Informacion tecnica, como direccion IP, cookies e historial de navegacion en nuestro sitio.</li>
+            </ul>
+
+            <h2>2. Finalidades del tratamiento</h2>
+            <p>Sus datos personales seran tratados para:</p>
+            <ul>
+              <li>Proveer los servicios y productos contratados.</li>
+              <li>Cumplir con obligaciones legales y fiscales.</li>
+              <li>Fines administrativos y de facturacion.</li>
+              <li>Enviar comunicaciones relevantes, avisos y actualizaciones de servicio.</li>
+              <li>Mejorar la seguridad y la experiencia del usuario en nuestros sistemas.</li>
+            </ul>
+
+            <h2>3. Fundamento legal</h2>
+            <p>El tratamiento de sus datos se realiza conforme a:</p>
+            <ul>
+              <li>Mexico: Ley Federal de Proteccion de Datos Personales en Posesion de los Particulares y su Reglamento.</li>
+              <li>Union Europea: Reglamento (UE) 2016/679 (RGPD).</li>
+              <li>Estados Unidos: CCPA (California Consumer Privacy Act) y demas leyes aplicables.</li>
+            </ul>
+
+            <h2>4. Transferencias de datos</h2>
+            <p>
+              Podremos compartir sus datos con terceros nacionales o internacionales unicamente para cumplir las
+              finalidades mencionadas, garantizando siempre las medidas de seguridad necesarias.
+            </p>
+
+            <h2>5. Derechos ARCO y otros derechos de privacidad</h2>
+            <p>
+              Usted tiene derecho a Acceder, Rectificar, Cancelar u Oponerse (ARCO) al tratamiento de sus datos, asi
+              como otros derechos previstos en el RGPD y la CCPA, como el derecho a la portabilidad y a solicitar la
+              eliminacion de sus datos.
+            </p>
+            <p>
+              Para ejercer estos derechos, envie su solicitud a
+              <a href="mailto:privacidad@diicsacv.com">privacidad@diicsacv.com</a> con nombre completo y copia de
+              identificacion oficial, asi como una descripcion clara de los datos y el derecho que desea ejercer.
+            </p>
+            <p>
+              Plazos legales (Mexico): DIICSA respondera a su solicitud en un maximo de 20 dias habiles y, en caso de
+              ser procedente, hara efectiva la accion solicitada en un plazo adicional de 15 dias habiles.
+            </p>
+
+            <h2>6. Uso de cookies y tecnologias similares</h2>
+            <p>
+              Nuestro sitio web utiliza cookies y tecnologias de seguimiento para mejorar la experiencia del usuario.
+              Usted puede deshabilitarlas desde su navegador.
+            </p>
+
+            <h2>7. Conservacion de datos</h2>
+            <p>
+              Sus datos se conservaran unicamente por el tiempo necesario para cumplir con las finalidades descritas y
+              obligaciones legales.
+            </p>
+
+            <h2>8. Cambios al Aviso de Privacidad</h2>
+            <p>
+              Nos reservamos el derecho de modificar este Aviso en cualquier momento. Las modificaciones estaran
+              disponibles en nuestro sitio web: www.diicsacv.com.
+            </p>
+
+            <div class="privacy-notice__actions">
+              <a class="privacy-notice__button" href="/">Volver al inicio</a>
+            </div>
           </div>
-          <div class="box">
-            <strong>Telefono</strong>
-            <p><a href="tel:+525533962097">+52 55 3396 2097</a></p>
-          </div>
-        </div>
-
-        <h2>1. Datos que recabamos</h2>
-        <p>Podemos recopilar:</p>
-        <ul>
-          <li>Datos de identificacion (nombre, direccion, correo electronico, telefono).</li>
-          <li>Datos fiscales y financieros para fines de facturacion y pagos.</li>
-          <li>Informacion tecnica (direccion IP, cookies, historial de navegacion en nuestro sitio).</li>
-        </ul>
-
-        <h2>2. Finalidades del tratamiento</h2>
-        <p>Sus datos personales seran tratados para:</p>
-        <ul>
-          <li>Proveer los servicios y productos contratados.</li>
-          <li>Cumplir con obligaciones legales y fiscales.</li>
-          <li>Fines administrativos y de facturacion.</li>
-          <li>Enviar comunicaciones relevantes, avisos y actualizaciones de servicio.</li>
-          <li>Mejorar la seguridad y la experiencia del usuario en nuestros sistemas.</li>
-        </ul>
-
-        <h2>3. Fundamento legal</h2>
-        <p>El tratamiento de sus datos se realiza conforme a:</p>
-        <ul>
-          <li>Mexico: Ley Federal de Proteccion de Datos Personales en Posesion de los Particulares y su Reglamento.</li>
-          <li>Union Europea: Reglamento (UE) 2016/679 (RGPD).</li>
-          <li>Estados Unidos: CCPA (California Consumer Privacy Act) y demas leyes aplicables.</li>
-        </ul>
-
-        <h2>4. Transferencias de datos</h2>
-        <p>
-          Podremos compartir sus datos con terceros nacionales o internacionales unicamente para cumplir las
-          finalidades mencionadas, garantizando siempre las medidas de seguridad necesarias.
-        </p>
-
-        <h2>5. Derechos ARCO y otros derechos de privacidad</h2>
-        <p>
-          Usted tiene derecho a Acceder, Rectificar, Cancelar u Oponerse (ARCO) al tratamiento de sus datos, asi como
-          otros derechos previstos en el RGPD y la CCPA, como el derecho a la portabilidad y a solicitar la eliminacion
-          de sus datos.
-        </p>
-        <p>
-          Para ejercer estos derechos, envie su solicitud a:
-          <a href="mailto:privacidad@diicsacv.com">privacidad@diicsacv.com</a> con nombre completo y copia de
-          identificacion oficial, asi como una descripcion clara de los datos y el derecho que desea ejercer.
-        </p>
-        <p>
-          Plazos legales (Mexico): DIICSA respondera a su solicitud en un maximo de 20 dias habiles y, en caso de ser
-          procedente, hara efectiva la accion solicitada en un plazo adicional de 15 dias habiles.
-        </p>
-
-        <h2>6. Uso de cookies y tecnologias similares</h2>
-        <p>
-          Nuestro sitio web utiliza cookies y tecnologias de seguimiento para mejorar la experiencia del usuario.
-          Usted puede deshabilitarlas desde su navegador.
-        </p>
-
-        <h2>7. Conservacion de datos</h2>
-        <p>
-          Sus datos se conservaran unicamente por el tiempo necesario para cumplir con las finalidades descritas y
-          obligaciones legales.
-        </p>
-
-        <h2>8. Cambios al Aviso de Privacidad</h2>
-        <p>
-          Nos reservamos el derecho de modificar este Aviso en cualquier momento. Las modificaciones estaran
-          disponibles en nuestro sitio web: www.diicsacv.com.
-        </p>
-
-        <div class="actions">
-          <a class="btn btn-ghost" href="/">Volver al inicio</a>
-        </div>
-
-        <footer>
-          DIICSA // Constructora Mexicana | Todos los derechos reservados.
-        </footer>
+        </article>
       </section>
-    </article>
-  </main>
-</MainLayout>
+    </main>
+    <Fragment set:html={footerHtmlToInject} />
+  </body>
+</html>
