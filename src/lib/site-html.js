@@ -5,6 +5,8 @@ const clientesMenuItem = `
 
 const footerCredit = `<span style="color: rgba(255,255,255,.88);">Copyright © 2024 DIICSA. Todos los derechos reservados. Sitio realizado por <a href="https://www.o7digital.com/" target="_blank" rel="noopener" style="color: #ffffff; font-weight: 800; text-decoration: underline; text-underline-offset: 3px;">o7Digital</a></span>`;
 const diicsaLogoImage = `<img width="2048" height="2048" src="/wp-content/uploads/2024/08/diccsA.png" class="attachment-full diicsa-header-logo" alt="DIICSA" style="width:180px !important;height:180px !important;max-width:none !important;object-fit:contain !important;" />`;
+const visionIcon = `<svg aria-hidden="true" width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3v8Z"/><path d="m9 12 2 2 4-4"/></svg>`;
+const policyIcon = `<svg aria-hidden="true" width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h3"/><path d="m14 17 1.5 1.5L19 15"/></svg>`;
 
 const textReplacements = [
   ["DIICSA offers both emergency roof leak and non-emergency roof repair services to both commercial.", "DIICSA ejecuta obra civil, rehabilitacion y mantenimiento general con personal capacitado y seguimiento en cada proyecto."],
@@ -76,6 +78,10 @@ export const applySiteHead = applySharedReplacements;
 
 export const applySiteHtml = (html) => {
   let next = applySharedReplacements(html);
+
+  next = next
+    .replace(/<i[^>]*class="flaticon flaticon-security"[^>]*><\/i>/gi, visionIcon)
+    .replace(/<i[^>]*class="flaticon flaticon-under-construction"[^>]*><\/i>/gi, policyIcon);
 
   next = next.replace(
     /Copyright\s*(?:©|&copy;)\s*2024\s*diicsacv\s*por\s*(?:<a[^>]*>)?o7Digital(?:<\/a>)?\.\s*Todos los derechos reservados\./gi,
