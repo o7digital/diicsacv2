@@ -2,7 +2,14 @@
 import snapshot from "../data/wp-snapshot.json";
 
 export function getStaticPaths() {
-  return snapshot.pages.filter((page) => page.path !== "/history").map((page) => {
+  const customServicePaths = new Set([
+    "/service/edificacion-habilitacion",
+    "/service/obra-electrica-alta-y-media",
+    "/service/obra-de-procesos-mecanicos",
+    "/service/obra-civil-en-general"
+  ]);
+
+  return snapshot.pages.filter((page) => page.path !== "/history" && !customServicePaths.has(page.path)).map((page) => {
     const normalized = page.path.replace(/^\/+|\/+$/g, "");
     return {
       params: {
@@ -16,7 +23,12 @@ export function getStaticPaths() {
 const { page } = Astro.props;
 const bodyAttributes = page.bodyAttributes ?? {};
 const headHtmlToInject = page.headHtml ?? "";
-const bodyHtmlToInject = page.bodyHtml ?? "";
+const localizeHtml = (html) =>
+  html.replace(
+    "DIICSA offers both emergency roof leak and non-emergency roof repair services to both commercial.",
+    "DIICSA ejecuta obra civil, rehabilitacion y mantenimiento general con personal capacitado y seguimiento en cada proyecto."
+  );
+const bodyHtmlToInject = localizeHtml(page.bodyHtml ?? "");
 ---
 <!doctype html>
 <html lang="es">
@@ -168,7 +180,8 @@ const bodyHtmlToInject = page.bodyHtml ?? "";
           const id = hash.replace("#", "");
           const target = document.getElementById(id) || document.querySelector(sectionMap[id]);
           if (!target) return false;
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          const top = target.getBoundingClientRect().top + window.scrollY - 120;
+          window.scrollTo({ top, behavior: "smooth" });
           history.replaceState(null, "", `#${id}`);
           return true;
         };
@@ -192,8 +205,9 @@ const bodyHtmlToInject = page.bodyHtml ?? "";
         const ready = () => {
           setSectionIds();
           if (window.location.hash) {
-            setTimeout(() => scrollToHash(window.location.hash), 120);
+            [120, 450, 900].forEach((delay) => setTimeout(() => scrollToHash(window.location.hash), delay));
           }
+          window.addEventListener("click", handleAnchorClick, true);
           document.addEventListener("click", handleAnchorClick, true);
         };
 
